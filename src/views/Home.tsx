@@ -1,7 +1,7 @@
 import {MediaItem} from '../types/DBTypes';
-import FeedRow from './FeedRow';
+import FeedRow from '../components/FeedRow';
 import {useState} from 'react';
-import SingleView from './SingleView';
+import SingleView from '../components/SingleView';
 
 
 const Home = () => {

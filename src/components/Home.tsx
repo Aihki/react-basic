@@ -1,7 +1,11 @@
 import {MediaItem} from '../types/DBTypes';
-import FeedRow from './feedRow';
+import FeedRow from './FeedRow';
+import {useState} from 'react';
+import SingleView from './SingleView';
+
 
 const Home = () => {
+  const [selectedItem, setSelectedItem] = useState<MediaItem | undefined>();
   const mediaArray: MediaItem[] = [
     {
       media_id: 8,
@@ -38,27 +42,16 @@ const Home = () => {
       created_at: '2024-01-07T20:48:13.000Z',
     },
   ];
-  console.log(mediaArray);
+
   return (
     <>
+    {selectedItem &&
+    (<SingleView item={selectedItem} setSelectedItem={setSelectedItem}/>)}
       <h2>My Media</h2>
-      <table>
-        <thead>
-          <tr>
-            <th>Thumbnail</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Size</th>
-            <th>Type</th>
-          </tr>
-        </thead>
-        <tbody>
-          {mediaArray.map((item) => (
-            <FeedRow item={item} />
-          ))}
-        </tbody>
-      </table>
+      <div className="activity">
+      {mediaArray.map((item) => ( <FeedRow key={item.media_id} item={item} setSelectedItem={setSelectedItem} />
+      ))}
+      </div>
     </>
   );
 };

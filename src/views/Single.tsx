@@ -10,21 +10,20 @@ const Single =() => {
   return (
     <>
     <p>{item.title}</p>
-    <button className="close" onClick={() => {
-      navigate(-1);
-    }}>return</button>
-
     {item.media_type.includes('video') ? (
       <video controls src={item.filename}></video>
     ) : (
       <img src={item.filename} alt={item.title} />
     )}
 
-    <div className="singleView">
-      <div className="singleViewImage" style={{ backgroundImage: `url(${item.filename})`}}></div>
-      <div className="singleViewInfo">
+    <div className="single-book-container">
+      <div className="single-book-img" style={{ backgroundImage: `url(${item.filename})`}}></div>
+      <div className="single-book-info">
         <p>{item.description}</p>
       </div>
+      <button className="close" onClick={() => {
+      navigate(-1);
+    }}>return</button>
     </div>
     </>
   );

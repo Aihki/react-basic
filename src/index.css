@@ -4,8 +4,8 @@
 
 :root {
   font-family: system-ui, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+/*   line-height: 1.5;
+  font-weight: 400; */
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -49,31 +49,6 @@ nav a {
 
 nav a:hover {
   background-color: #111111;
-}
-
-/* media item card */
-td {
-  padding: 1rem;
-}
-
-td img {
-  width: 260px;
-  height: 200px;
-  object-fit: cover;
-}
-
-td button:hover,
-a:hover {
-  background-color: #111111;
-}
-
-td a {
-  color: white;
-  text-decoration: none;
-  background-color: #363636;
-  color: white;
-  border: none;
-  padding: 0.5rem;
 }
 
 
@@ -129,12 +104,12 @@ button {
   cursor: pointer;
 }
 
-.feeder{
+.feed-container{
   margin-bottom: 20px;
   min-width: 0;
   }
 
-  .feed{
+  .feed-item{
     background-color: #4f4b4b;
     border-radius: 4px;
     font-size: 1.3rem;
@@ -142,20 +117,20 @@ button {
     position: relative;
   }
 
-  .feedRow{
+  .feed-item-row{
     display: grid;
     grid-template-columns: 100px auto;
     height: 100%;
     min-height: 110px;
   }
 
-  .feedRowImage{
+  .feed-item-image{
     background-position: 50%;
     background-repeat: no-repeat;
     background-size: cover;
   }
 
-  .feedRowInfo{
+  .feed-item-info{
     padding: 14px 20px;
     padding-right: 100px;
   }

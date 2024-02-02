@@ -1,12 +1,9 @@
 import {MediaItem} from '../types/DBTypes';
 import FeedRow from '../components/FeedRow';
-import {useState} from 'react';
-import SingleView from '../components/SingleView';
 
 
-const Home = () => {
-  const [selectedItem, setSelectedItem] = useState<MediaItem | undefined>();
-  const mediaArray: MediaItem[] = [
+
+const Home = () => {  const mediaArray: MediaItem[] = [
     {
       media_id: 8,
       user_id: 5,
@@ -45,11 +42,9 @@ const Home = () => {
 
   return (
     <>
-    {selectedItem &&
-    (<SingleView item={selectedItem} setSelectedItem={setSelectedItem}/>)}
       <h2>My Media</h2>
       <div className="activity">
-      {mediaArray.map((item) => ( <FeedRow key={item.media_id} item={item} setSelectedItem={setSelectedItem} />
+      {mediaArray.map((item) => ( <FeedRow key={item.media_id} item={item} />
       ))}
       </div>
     </>

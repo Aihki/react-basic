@@ -15,7 +15,7 @@ const FeedRow = (props: {item: MediaItem}) => {
             ></a>
             <div className="feed-item-info">
               <p className="feed-item-title">{item.title}</p>
-              <p className="feed-item-description">{item.description}</p>
+              <p className="feed-item-description">{item.series_name}</p>
             </div>
           </div>
         </div>

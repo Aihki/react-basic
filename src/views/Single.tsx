@@ -9,24 +9,37 @@ const Single =() => {
   const navigate: NavigateFunction = useNavigate();
   return (
     <>
-    <p>{item.title}</p>
-    {item.media_type.includes('video') ? (
-      <video controls src={item.filename}></video>
-    ) : (
-      <img src={item.filename} alt={item.title} />
-    )}
-
-    <div className="single-book-container">
-      <div className="single-book-img" style={{ backgroundImage: `url(${item.filename})`}}></div>
-      <div className="single-book-info">
-        <p>{item.description}</p>
+{/*     {item.media_type.includes('video') ? (
+  <video controls src={item.filename}></video>
+) : (
+  <img src={item.filename} alt={item.title} />
+)} */}
+    <div className='single-book'>
+      <div className='single-book-img-mob' style={{backgroundImage: `url(${item.filename})`}}></div>
+      <div className='single-book-container'>
+        <div className='single-book-img'><img className='book-cover' src={item.filename} alt={item.title} /></div>
+        <div className='single-book-info'>
+          <h3>{item.title}</h3>
+          <p>{item.description}</p>
+          </div>
       </div>
+    </div>
+
+
       <button className="close" onClick={() => {
       navigate(-1);
     }}>return</button>
-    </div>
+
     </>
   );
 };
 export default Single;
 
+{/* <p>{item.title}</p>
+
+
+<div className="single-book-container">
+  <div className="single-book-img" style={{ backgroundImage: `url(${item.filename})`}}></div>
+  <div className="single-book-info">
+    <p>{item.description}</p>
+  </div> */}

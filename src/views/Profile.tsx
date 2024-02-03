@@ -1,9 +1,14 @@
+import LoginPage from "../components/LoginPage";
+import ProfilePage from "../components/ProfilePage";
+
 const profile = () => {
   return (
     <div>
-      <h1>Profile</h1>
+      <LoginPage />
+      <ProfilePage />
     </div>
   );
 }
 
 export default profile;
+

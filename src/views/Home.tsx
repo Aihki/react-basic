@@ -8,7 +8,7 @@ import { fetchData } from '../lib/utils';
 const Home = () => {
 
 
-  const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
+  const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
   const getBook = async () =>{
     try {
       const bookItems = await fetchData<MediaItem[]>(import.meta.env.VITE_MEDIA_API + '/media');

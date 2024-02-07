@@ -1,5 +1,5 @@
 import {Link} from 'react-router-dom';
-import {MediaItem, MediaItemWithOwner} from '../types/DBTypes';
+import {MediaItemWithOwner} from '../types/DBTypes';
 
 const FeedRow = (props: {item: MediaItemWithOwner}) => {
   const {item} = props;

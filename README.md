@@ -1,7 +1,7 @@
 # Hybrid apps - React app
 
 
-Open [link text here](https://users.metropolia.fi/~nestorl/react-routing/) to view it in the browser.
+Open [link text here](https://users.metropolia.fi/~nestorl/custom-hooks/) to view it in the browser.
 
 ---
 

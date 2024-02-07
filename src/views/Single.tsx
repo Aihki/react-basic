@@ -1,11 +1,11 @@
-import {MediaItem} from '../types/DBTypes';
+import { MediaItemWithOwner} from '../types/DBTypes';
 import { useLocation } from 'react-router-dom';
 import {NavigateFunction, useNavigate} from "react-router-dom";
 
 
 const Single =() => {
   const {state} = useLocation();
-  const item: MediaItem = state;
+  const item: MediaItemWithOwner = state;
   const navigate: NavigateFunction = useNavigate();
   return (
     <>
@@ -21,6 +21,7 @@ const Single =() => {
         <div className='single-book-info'>
           <h3>{item.title}</h3>
           <p>{item.description}</p>
+          <p>user:{item.username}</p>
           </div>
       </div>
     </div>

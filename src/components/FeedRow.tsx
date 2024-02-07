@@ -1,7 +1,7 @@
 import {Link} from 'react-router-dom';
-import {MediaItem} from '../types/DBTypes';
+import {MediaItem, MediaItemWithOwner} from '../types/DBTypes';
 
-const FeedRow = (props: {item: MediaItem}) => {
+const FeedRow = (props: {item: MediaItemWithOwner}) => {
   const {item} = props;
   return (
     <Link to="/single" state={item}>
@@ -15,6 +15,7 @@ const FeedRow = (props: {item: MediaItem}) => {
             <div className="feed-item-info">
               <p className="feed-item-title">{item.title}</p>
               <p className="feed-item-description">{item.series_name}</p>
+              <p className="feed-item-owner">{item.username}</p>
             </div>
           </div>
         </div>

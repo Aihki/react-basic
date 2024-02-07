@@ -1,4 +1,4 @@
-import {MediaItem, MediaItemWithOwner} from '../types/DBTypes';
+import {MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
 import FeedRow from '../components/FeedRow';
 import { useEffect, useState } from 'react';
 import { fetchData } from '../lib/utils';
@@ -6,26 +6,28 @@ import { fetchData } from '../lib/utils';
 
 
 const Home = () => {
+
+
   const [mediaArray, setMediaArray] = useState<MediaItem[]>([]);
   const getBook = async () =>{
     try {
-      const data = await fetchData<MediaItem[]>(import.meta.env.VITE_MEDIA_API + '/media');
+      const bookItems = await fetchData<MediaItem[]>(import.meta.env.VITE_MEDIA_API + '/media');
 
-      const dataWithOwner: MediaItemWithOwner = Promise.all(data.map((item) => {
-        const username = fetchData(import.meta.env.VITE_AUTH_API + '/user/' + item.user_id)
-        const itemWithOwner: MediaItemWithOwner = { ...item, username: username }
-
+      const bookItemsWithOwner: MediaItemWithOwner[] = await Promise.all(bookItems.map(async (item) => {
+        const user = await fetchData<User>(import.meta.env.VITE_AUTH_API + '/users/' + item.user_id)
+        const bookWithOwner: MediaItemWithOwner = { ...item, username: user.username };
+        return bookWithOwner;
       }));
 
-      setMediaArray(data);
+      setMediaArray(bookItemsWithOwner);
+      console.log('bookItems', bookItemsWithOwner)
     } catch (error) {
       console.error('Error fetching book data', error);
     }
   }
 useEffect(() => {
   getBook();
-}
-, []);
+},[]);
 
   return (
     <>

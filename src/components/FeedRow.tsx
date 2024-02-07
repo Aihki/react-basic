@@ -8,11 +8,10 @@ const FeedRow = (props: {item: MediaItem}) => {
       <div className="feed-container">
         <div className="feed-item">
           <div className="feed-item-row">
-            <a
+            <span
               className="feed-item-image"
-              href=""
               style={{backgroundImage: `url(${item.thumbnail})`}}
-            ></a>
+            ></span>
             <div className="feed-item-info">
               <p className="feed-item-title">{item.title}</p>
               <p className="feed-item-description">{item.series_name}</p>

@@ -13,7 +13,7 @@ const useForm = (callback: () => void, initState: Record<string, string>) => {
 
      const handleInputChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
          event.persist();
-         console.log(event.target.name, event.target.value);
+
          setInputs((inputs) => ({
              ...inputs,
              [event.target.name]: event.target.value,

@@ -1,7 +1,7 @@
 import LoginForm from "../components/LoginForm";
 import RegisterForm from "../components/RegisterForm";
 
-const login = () => {
+const Login = () => {
   return (
     <>
       <LoginForm />
@@ -11,4 +11,4 @@ const login = () => {
 
 }
 
-export default login;
+export default Login;

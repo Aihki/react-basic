@@ -8,8 +8,10 @@ const initValues: Credentials = {
   username: "",
   password: "",
 };
+
+
 const {handleSubmit,handleInputChange, inputs} = useForm(async () => {
-await postLogin(inputs);
+console.log(await postLogin(inputs as Credentials))
 }, initValues);
 
   return (

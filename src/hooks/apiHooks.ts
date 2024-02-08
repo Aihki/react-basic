@@ -1,4 +1,3 @@
-import { Body } from './../../node_modules/@apollo/client/link/http/selectHttpOptionsAndBody.d';
 import { useEffect, useState } from 'react';
 import { MediaItem, MediaItemWithOwner, User } from '../types/DBTypes';
 import { fetchData } from '../lib/utils';
@@ -38,7 +37,7 @@ const useUser = ()  => {
 };
 
 const useAuthentication = () => {
-  const postLogin = async (inputs) => {
+  const postLogin = async (creds:Credentials) => {
     try{
       return await fetchData<LoginResponse>(import.meta.env.VITE_AUTH_API + '/auth/login',
       {
@@ -46,7 +45,7 @@ const useAuthentication = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(inputs),
+        body: JSON.stringify(creds),
       });
     }
     catch (error) {

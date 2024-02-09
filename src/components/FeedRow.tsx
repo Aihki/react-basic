@@ -14,7 +14,6 @@ const FeedRow = (props: {item: MediaItemWithOwner}) => {
             ></span>
             <div className="feed-item-info">
               <p className="feed-item-title">{item.title}</p>
-              <p className="feed-item-description">{item.series_name}</p>
               <p className="feed-item-owner">{item.username}</p>
             </div>
           </div>

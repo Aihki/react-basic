@@ -13,7 +13,7 @@ const mediaArray: MediaItemWithOwner[] = useBook();
     <>
       <h2>Activity</h2>
       <div className="activity">
-      {mediaArray.map((item) => ( <FeedRow key={item.book_id} item={item} />
+      {mediaArray.map((item) => ( <FeedRow key={item.media_id} item={item} />
       ))}
       </div>
     </>

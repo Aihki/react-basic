@@ -2,9 +2,9 @@ import {useEffect, useState} from 'react';
 import {MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
 import {fetchData} from '../lib/utils';
 import {Credentials} from '../types/LocalTypes';
-import {LoginResponse, UserResponse} from '../types/MessageTypes';
+import {LoginResponse, MediaResponse, UploadResponse, UserResponse} from '../types/MessageTypes';
 
-const useBook = (): MediaItemWithOwner[] => {
+const useBook = () => {
   const [mediaArray, setMediaArray] = useState<MediaItemWithOwner[]>([]);
 
   const getBook = async () => {
@@ -37,7 +37,28 @@ const useBook = (): MediaItemWithOwner[] => {
     getBook();
   }, []);
 
-  return mediaArray;
+  const postBook = async (file:UploadResponse, inputs: Record<string, string>, token: string) => {
+    const book: Omit<MediaItem, 'media_id' | 'user_id' | 'thumbnail' | 'created_at'> = {
+      title: inputs.title,
+      description: inputs.description,
+      filename: file.data.filename,
+      filesize: file.data.filesize,
+      media_type: file.data.media_type,
+    };
+
+    const options: RequestInit = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token,
+      },
+      body: JSON.stringify(book),
+    };
+return await fetchData<MediaResponse>
+(import.meta.env.VITE_MEDIA_API + '/media', options);
+  };
+
+  return {mediaArray, postBook};
 };
 
 const useUser = () => {
@@ -72,7 +93,6 @@ const useUser = () => {
 
 const useAuthentication = () => {
   const postLogin = async (creds: Credentials) => {
-    try {
       return await fetchData<LoginResponse>(
         import.meta.env.VITE_AUTH_API + '/auth/login',
         {
@@ -83,12 +103,27 @@ const useAuthentication = () => {
           body: JSON.stringify(creds),
         },
       );
-    } catch (error) {
-      console.error('Error fetching book data', error);
-    }
   };
 
   return {postLogin};
 };
 
-export {useBook, useUser, useAuthentication};
+const useFile = () => {
+  const postFile = async(file: File, token: string) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    const options: RequestInit = {
+      method: 'POST',
+      headers: {
+        Authorization: 'Bearer ' + token,
+      },
+      body: formData,
+    };
+    return await fetchData<UploadResponse>(import.meta.env.VITE_UPLOAD_SERVER +'/upload', options);
+  }
+  return {postFile};
+
+
+};
+
+export {useBook, useUser, useAuthentication, useFile};

@@ -1,10 +1,17 @@
-const logout = () => {
-return (
-<div>
-  <h1>Logout</h1>
-  <p>You have been logged out</p>
-</div>
-);
-}
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect } from 'react';
+import {useUserContext} from '../hooks/contexHooks';
 
-export default logout;
+const Logout = () => {
+  const {handleLogout} = useUserContext();
+
+
+  useEffect(() => {
+    handleLogout();
+  },[]);
+
+
+  return <p>log out!</p>;
+};
+
+export default Logout;

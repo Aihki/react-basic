@@ -4,8 +4,7 @@
 
 :root {
   font-family: system-ui, sans-serif;
-  /*   line-height: 1.5;
-  font-weight: 400; */
+  font-weight: 400;
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
@@ -145,13 +144,22 @@ button {
 }
 
 .feed-item-info {
-  padding: 14px 20px;
+  padding: 5px 15px;
   padding-right: 10px;
 }
-
+.feed-item-owner{
+  padding-bottom: 5px;
+  font-size: 1rem;
+}
 
 /* mobile css */
 @media (max-width: 768px) {
+
+  #root {
+    padding: 0;
+  }
+
+
   .single-book-img-mob{
     background-position: 50% 20%;
     background-size: cover;

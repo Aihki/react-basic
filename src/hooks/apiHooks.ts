@@ -86,9 +86,22 @@ const useUser = () => {
     };
     await fetchData<UserResponse>(import.meta.env.VITE_AUTH_API + '/users/', options,);
   };
+  const getUsernameAvailable = async (username: string) => {
+    const result = await fetchData<{available: boolean}>(
+      import.meta.env.VITE_AUTH_API + '/users/username/' + username
+    );
+    return result;
+  };
+
+  const getEmailAvailable = async (email: string) => {
+    const result = await fetchData<{available: boolean}>(
+      import.meta.env.VITE_AUTH_API + '/users/email/' + email
+    );
+    return result;
+  };
 
 
-  return {getUserByToken, postUser};
+  return {getUserByToken, postUser, getUsernameAvailable, getEmailAvailable};
 };
 
 const useAuthentication = () => {

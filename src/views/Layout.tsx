@@ -17,6 +17,8 @@ const Layout = () => {
             <li>
               <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/">Home</Link>
             </li>
+            {user ? (
+            <>
             <li>
               <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/profile">Profile</Link>
             </li>
@@ -24,11 +26,14 @@ const Layout = () => {
               <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/upload">Upload</Link>
             </li>
             <li>
-              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/login">Login</Link>
-            </li>
-            <li>
               <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/logout">Logout</Link>
             </li>
+            </>
+            ): (
+            <li>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/login">Login</Link>
+            </li>
+            )}
           </ul>
         </nav>
       </header>

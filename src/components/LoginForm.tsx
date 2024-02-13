@@ -18,11 +18,11 @@ const {handleSubmit,handleInputChange, inputs} = useForm(doLogin, initValues);
 
   return (
     <>
-      <h1>Login</h1>
+      <h3  className="text-3xl">Login</h3>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="UserWithLevelname">Username</label>
-          <input
+        <div className="flex w-4/5">
+          <label className="w-1/3 p-6 text-end" htmlFor="UserWithLevelname">Username</label>
+          <input className="m-3 w-2/3 rounded-md border-slate-500 p3 text-slate-950"
             name="username"
             type="text"
             id="UserWithLevelname"
@@ -30,9 +30,9 @@ const {handleSubmit,handleInputChange, inputs} = useForm(doLogin, initValues);
             autoComplete="username"
           />
         </div>
-        <div>
-          <label htmlFor="loginpassword">Password</label>
-          <input
+        <div className="flex w-4/5">
+          <label className="w-1/3 p-6 text-end" htmlFor="loginpassword">Password</label>
+          <input className="m-3 w-2/3 rounded-md border-slate-500 p3 text-slate-950"
             name="password"
             type="password"
             id="loginpassword"
@@ -40,7 +40,9 @@ const {handleSubmit,handleInputChange, inputs} = useForm(doLogin, initValues);
             autoComplete="current-password"
           />
         </div>
-        <button type="submit">Login</button>
+        <div className="flex w-4/5 justify-end">
+        <button className="m-3 w-1/3 rounded-md bg-slate-750 p3" type="submit">Login</button>
+        </div>
       </form>
     </>
   );

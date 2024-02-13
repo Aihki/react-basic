@@ -1,4 +1,4 @@
-import { MediaItem, Status, UserWithNoPassword } from "./DBTypes";
+import { MediaItem, UserWithNoPassword } from './DBTypes';
 
 type MessageResponse = {
   message: string;
@@ -10,10 +10,6 @@ type ErrorResponse = MessageResponse & {
 
 type MediaResponse = MessageResponse & {
   media: MediaItem | MediaItem[];
-};
-
-type StatusResponse = MessageResponse & {
-  status: Status | Status[];
 };
 
 // for auth server
@@ -29,6 +25,14 @@ type UserResponse = MessageResponse & {
 
 type UserDeleteResponse = MessageResponse & {
   user: { user_id: number };
+};
+
+type AvailableResponse = Partial<MessageResponse> & {
+  available?: boolean;
+};
+
+type BooleanResponse = MessageResponse & {
+  success: boolean;
 };
 
 // for upload server
@@ -48,5 +52,6 @@ export type {
   UploadResponse,
   UserResponse,
   UserDeleteResponse,
-  StatusResponse,
+  AvailableResponse,
+  BooleanResponse,
 };

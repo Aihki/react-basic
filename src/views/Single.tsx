@@ -9,38 +9,24 @@ const Single =() => {
   const navigate: NavigateFunction = useNavigate();
   return (
     <>
-{/*     {item.media_type.includes('video') ? (
-  <video controls src={item.filename}></video>
-) : (
-  <img src={item.filename} alt={item.title} />
-)} */}
-    <div className='single-book'>
-      <div className='single-book-img-mob' style={{backgroundImage: `url(${item.filename})`}}></div>
-      <div className='single-book-container'>
-        <div className='single-book-img'><img className='book-cover' src={item.filename} alt={item.title} /></div>
-        <div className='single-book-info'>
-          <h3>{item.title}</h3>
-          <p>{item.description}</p>
-          <p>user:{item.username}</p>
-          </div>
-      </div>
-    </div>
-
-
-      <button className="close" onClick={() => {
-      navigate(-1);
-    }}>return</button>
-
+      <h3>{item.title}</h3>
+      {item.media_type.includes('video') ? (
+        <video controls src={item.filename}></video>
+      ) : (
+        <img src={item.filename} alt={item.title} />
+      )}
+      <p>{item.description}</p>
+      <p>Uploaded at: {new Date(item.created_at).toLocaleString('fi-FI')}, by: {item.username} </p>
+      <p>{item.filesize}</p>
+      <p>{item.media_type}</p>
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+      >
+        go back
+      </button>
     </>
   );
 };
 export default Single;
-
-{/* <p>{item.title}</p>
-
-
-<div className="single-book-container">
-  <div className="single-book-img" style={{ backgroundImage: `url(${item.filename})`}}></div>
-  <div className="single-book-info">
-    <p>{item.description}</p>
-  </div> */}

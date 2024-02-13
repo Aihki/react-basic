@@ -1,26 +1,35 @@
 import {Link} from 'react-router-dom';
-import { MediaItemWithOwner} from '../types/DBTypes';
+import {MediaItemWithOwner} from '../types/DBTypes';
+import { useUserContext } from '../hooks/contexHooks';
 
 const FeedRow = (props: {item: MediaItemWithOwner}) => {
-  const {item} = props;
-  return (
-    <Link to="/single" state={item}>
-      <div className="feed-container">
-        <div className="feed-item">
-          <div className="feed-item-row">
-            <span
-              className="feed-item-image"
-              style={{backgroundImage: `url(${item.thumbnail})`}}
-            ></span>
-            <div className="feed-item-info">
-              <p className="feed-item-title">{item.title}</p>
-              <p className="feed-item-owner">{item.username}</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </Link>
-  );
-};
+    const {item}  = props;
+    const {user} = useUserContext();
+
+    return (
+      <tr className="media-row">
+        <td>
+          <img src={item.thumbnail} alt={item.title} />
+        </td>
+        <td>{item.title}</td>
+        <td>{item.description}</td>
+        <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
+        <td>{item.filesize}</td>
+        <td>{item.media_type}</td>
+        <td>{item.username}</td>
+        <td>
+          <Link className="bg-slate-700 p-2 hover:bg-slate-950" to="/single" state={item}>View</Link>
+          {user &&(
+          <>
+          <button className="bg-slate-700 p-2 hover:bg-slate-950"
+           onClick={() => console.log("delete", item)} >Modify</button>
+          <button className="bg-slate-700 p-2 hover:bg-slate-950"
+           onClick={() => console.log("delete", item)}>Delete</button>
+          </>
+          )}
+        </td>
+      </tr>
+    );
+  };
 
 export default FeedRow;

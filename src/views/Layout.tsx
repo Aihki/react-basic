@@ -13,21 +13,21 @@ const Layout = () => {
       <header>
         <h1>Book Collection</h1>
         <nav>
-          <ul>
+          <ul className='flex justify-end bg-slate-950'>
             <li>
-              <Link to="/">Home</Link>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/">Home</Link>
             </li>
             <li>
-              <Link to="/profile">Profile</Link>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/profile">Profile</Link>
             </li>
             <li>
-              <Link to="/upload">Upload</Link>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/upload">Upload</Link>
             </li>
             <li>
-              <Link to="/login">Login</Link>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/login">Login</Link>
             </li>
             <li>
-              <Link to="/logout">Logout</Link>
+              <Link className='hover:bg-slate 700 block p-4 text-center text-slate-50' to="/logout">Logout</Link>
             </li>
           </ul>
         </nav>

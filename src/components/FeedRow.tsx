@@ -8,16 +8,18 @@ const FeedRow = (props: {item: MediaItemWithOwner}) => {
     console.log("user", user)
 
     return (
-      <tr className="media-row">
-        <td>
-          <img src={item.thumbnail} alt={item.title} />
+      <tr className="p-4">
+        <td  className="flex items-center justify-center">
+          <img
+          className="h-60 w-72 object-cover"
+           src={item.thumbnail} alt={item.title} />
         </td>
-        <td>{item.title}</td>
-        <td>{item.description}</td>
-        <td>{new Date(item.created_at).toLocaleString('fi-FI')}</td>
-        <td>{item.filesize}</td>
-        <td>{item.media_type}</td>
-        <td>{item.username}</td>
+        <td className="">{item.title}</td>
+        <td className="text-ellipsis">{item.description}</td>
+        <td className="">{new Date(item.created_at).toLocaleString('fi-FI')}</td>
+        <td className="">{item.filesize}</td>
+        <td className="">{item.media_type}</td>
+        <td className="">{item.username}</td>
         <td>
           <Link className="bg-slate-700 p-2 hover:bg-slate-950" to="/single" state={item}>View</Link>
           {user &&(user.user_id === item.user_id || user.level_name === "Admin") && (

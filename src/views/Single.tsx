@@ -1,6 +1,7 @@
 import { MediaItemWithOwner} from '../types/DBTypes';
 import { useLocation } from 'react-router-dom';
 import {NavigateFunction, useNavigate} from "react-router-dom";
+import Likes from '../components/likes';
 
 
 const Single =() => {
@@ -9,12 +10,13 @@ const Single =() => {
   const navigate: NavigateFunction = useNavigate();
   return (
     <>
-      <h3>{item.title}</h3>
+      <h3 className="text-3xl">{item.title}</h3>
       {item.media_type.includes('video') ? (
-        <video controls src={item.filename}></video>
+        <video className="max-w-full" controls src={item.filename}></video>
       ) : (
-        <img src={item.filename} alt={item.title} />
+        <img className="max-w-full" src={item.filename} alt={item.title} />
       )}
+      <Likes item={item}/>
       <p>{item.description}</p>
       <p>Uploaded at: {new Date(item.created_at).toLocaleString('fi-FI')}, by: {item.username} </p>
       <p>{item.filesize}</p>

@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {Like, MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
+import {Comment, Like, MediaItem, MediaItemWithOwner, User} from '../types/DBTypes';
 import {fetchData} from '../lib/utils';
 import {Credentials} from '../types/LocalTypes';
 import {LoginResponse, MediaResponse, MessageResponse, UploadResponse, UserResponse} from '../types/MessageTypes';
@@ -100,8 +100,14 @@ const useUser = () => {
     return result;
   };
 
+  const getUserById = async (user_id: number) => {
+    return await fetchData<User>(
+      import.meta.env.VITE_AUTH_API + '/users/' + user_id,
+    );
+  }
 
-  return {getUserByToken, postUser, getUsernameAvailable, getEmailAvailable};
+
+  return {getUserByToken, postUser, getUsernameAvailable, getEmailAvailable, getUserById};
 };
 
 const useAuthentication = () => {
@@ -192,5 +198,42 @@ const useLike = () => {
 
   return {postLike, deleteLike, getCountByMediaId, getUserLike};
 };
+const useComment = () => {
+  const postComment = async (
+     comment_text: string,
+     media_id: number,
+     user_id: number,
+     token: string) => {
+      // TODO: Send a POST request to /comments with the comment object and the token in the Authorization header.
+      const options: RequestInit = {
+        method: 'POST',
+        headers: {
+          Authorization: 'Bearer ' + token,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({comment_text, media_id, user_id}),
+      };
+      return await fetchData<MessageResponse>(
+        import.meta.env.VITE_MEDIA_API + '/comments',
+        options,
+      );
+  };
+const {getUserById} = useUser();
+  const getCommentsByMediaId = async (media_id: number) => {
+      // TODO: Send a GET request to /comments/:media_id to get the comments.
+      const comments = await fetchData<Comment[]>(
+        import.meta.env.VITE_MEDIA_API + '/comments/bymedia/' + media_id,
+      );
+      const commentsWithUsername = await Promise.all<Comment & {username: string}>(
+        comments.map(async (comment) => {
+          const user =  await getUserById(comment.user_id);
+          return {...comment, username: user.username};
+        }
+      ));
+      return commentsWithUsername;
+  };
 
-export {useBook, useUser, useAuthentication, useFile, useLike};
+  return { postComment, getCommentsByMediaId };
+};
+
+export {useBook, useUser, useAuthentication, useFile, useLike, useComment};

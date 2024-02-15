@@ -1,58 +1,107 @@
-import { useUserContext } from '../hooks/contexHooks';
+import {useEffect, useRef} from 'react';
 import {useForm} from '../hooks/formHooks';
 import {useCommentStore} from '../store';
 import {MediaItemWithOwner} from '../types/DBTypes';
+import {useUserContext} from '../hooks/contexHooks';
+import {useComment} from '../hooks/apiHooks';
 
 const Comments = ({item}: {item: MediaItemWithOwner}) => {
+  const {comments, setComments} = useCommentStore();
   const {user} = useUserContext();
-  const {comments, addComment} = useCommentStore();
+  const formRef = useRef<HTMLFormElement>(null);
+  const {getCommentsByMediaId, postComment} = useComment();
 
-  const initValues = {
-    commnent_text: '',
-  };
+  const initValues = {comment_text: ''};
+
   const doComment = async () => {
-    if(!user) {
+    const token = localStorage.getItem('token');
+    if (!user || !token) {
       return;
     }
-    addComment({
-      comment_text: inputs.commnent_text,
-      media_id: item.media_id,
-      user_id: user.user_id,
-      username: user.username
-    });
+    try {
+      await postComment(
+        inputs.comment_text,
+        item.media_id,
+        user.user_id,
+        token,
+      );
+      await getComments()
+      if (formRef.current) {
+        formRef.current.reset();
+      }
+    } catch (e) {
+      console.log('post comment error', (e as Error).message);
+    }
   };
-  console.log(comments);
+
   const {handleSubmit, handleInputChange, inputs} = useForm(
     doComment,
     initValues,
   );
+  const getComments = async () => {
+    try {
+      const comments = await getCommentsByMediaId(item.media_id);
+      setComments(comments);
+    } catch (e) {
+      console.log('get comments error', (e as Error).message);
+      setComments([]);
+    }
+  };
+
+  useEffect(() => {
+    getComments();
+  }, []);
 
   return (
     <>
-      <h3 className="text-3xl">Add Comments</h3>
-      <form onSubmit={handleSubmit} className="flex flex-col text-center">
-        <div className="flex w-4/5">
-          <label className="w-1/3 p-6 text-end" htmlFor="commnent">
-            Commnent
-          </label>
-          <input
-            className="p3 m-3 w-2/3 rounded-md border-slate-500 text-slate-950"
-            name="commnent_text"
-            type="text"
-            id="commnent"
-            autoComplete="commnent"
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="flex w-4/5 justify-end">
-          <button
-            className="bg-slate-750 p3 m-3 w-1/3 rounded-md"
-            type="submit"
-          >
-            Post
-          </button>
-        </div>
-      </form>
+      {user && (
+        <>
+          <h3 className="text-xl">Post Comment</h3>
+          <form onSubmit={handleSubmit} ref={formRef}>
+            <div className="flex w-4/5">
+              <label className="w-1/3 p-6 text-end" htmlFor="comment">
+                Comment
+              </label>
+              <input
+                className="m-3 w-2/3 rounded-md border border-slate-500 p-3 text-slate-950"
+                name="comment_text"
+                type="text"
+                id="comment"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="flex w-4/5 justify-end">
+              <button
+                className="m-3 w-1/3 rounded-md bg-slate-700 p-3"
+                type="submit"
+              >
+                Post
+              </button>
+            </div>
+          </form>
+        </>
+      )}
+      {comments.length > 0 && (
+        <>
+          <h3 className="text-xl">Comments</h3>
+          <ul>
+            {comments.map((comment) => (
+              <li key={comment.comment_id}>
+                <div className="rounded-md border border-slate-200 bg-slate-800 p-3 text-slate-100">
+                  <span className="font-bold text-slate-200">
+                    On{' '}
+                    {new Date(comment.created_at!).toLocaleDateString('fi-FI')}{' '}
+                  </span>
+                  <span className="font-bold text-slate-200">
+                    {comment.username} wrote:
+                  </span>
+                  <span className="ml-2">{comment.comment_text}</span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )}
     </>
   );
 };

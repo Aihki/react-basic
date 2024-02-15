@@ -1,16 +1,22 @@
 import { create } from "zustand";
 import { Comment } from "./types/DBTypes";
 
-/* type CommentWithUsername = Partial<Comment & {username: string}>[]; */
+type CommentWithUsername = Partial<Comment & {username: string}>;
+
 
 type CommentStore = {
-  comments: Partial<Comment & {username: string}>[];
-  addComment: (comment: Partial<Comment & {username: string}>) => void;
+  comments: CommentWithUsername[];
+  setComments: (comments: CommentWithUsername[]) => void;
+  addComment: (comment: CommentWithUsername) => void;
 };
 
 
 export const useCommentStore = create<CommentStore>((set) => ({
   comments: [],
+  setComments: (comments) =>
+  set(() => ({
+     comments: comments,
+  })),
   addComment: (comment) =>
           set((state) => ({
              comments: [

@@ -2,6 +2,7 @@ import { MediaItemWithOwner} from '../types/DBTypes';
 import { useLocation } from 'react-router-dom';
 import {NavigateFunction, useNavigate} from "react-router-dom";
 import Likes from '../components/likes';
+import Comments from '../components/Comment';
 
 
 const Single =() => {
@@ -28,6 +29,7 @@ const Single =() => {
       >
         go back
       </button>
+      < Comments item={item} />
     </>
   );
 };

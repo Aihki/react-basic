@@ -15,13 +15,14 @@ const {mediaArray} = useBook();
       <table>
         <thead>
           <tr>
-            <th>Thumbnail</th>
-            <th>Title</th>
-            <th>Description</th>
-            <th>Created</th>
-            <th>Size</th>
-            <th>Type</th>
-            <th>Owner</th>
+            <th className="w-3/12">Thumbnail</th>
+            <th className="w-1/12">Title</th>
+            <th className="w-1/12">Description</th>
+            <th className="w-1/12">Created</th>
+            <th className="w-1/12">Size</th>
+            <th className="w-1/12">Type</th>
+            <th className="w-1/12">Owner</th>
+            <th className="w-2/12">Actions</th>
           </tr>
         </thead>
         <tbody>

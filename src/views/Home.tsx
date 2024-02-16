@@ -1,6 +1,6 @@
 
 import FeedRow from '../components/FeedRow';
-import {useBook} from '../hooks/apiHooks';
+import {useBook} from '../hooks/graphQLHooks';
 
 
 

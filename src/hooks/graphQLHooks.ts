@@ -221,7 +221,7 @@ return await makeQuery<GraphQLResponse<{deleteLike: MessageResponse}>, {likeId: 
   return {count: result.data.mediaItem.likes_count}
   };
 
-  const getUserLike = async (media_id: number, token: string) => {
+  const getUserLike = async (media_id: string, token: string) => {
     // Send a GET request to /likes/bymedia/user/:media_id to get the user's like on the media.
     const options: RequestInit = {
       method: 'GET',

@@ -1,9 +1,9 @@
 import {useEffect, useRef} from 'react';
 import {useForm} from '../hooks/formHooks';
-import {useCommentStore} from '../store';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import {useUserContext} from '../hooks/contexHooks';
 import {useComment} from '../hooks/apiHooks';
+import { useCommentStore } from '../Store';
 
 const Comments = ({item}: {item: MediaItemWithOwner}) => {
   const {comments, setComments} = useCommentStore();

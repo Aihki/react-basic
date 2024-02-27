@@ -1,7 +1,7 @@
 # Hybrid apps - React app
 
 
-Open [link text here](https://users.metropolia.fi/~nestorl/upload) to view it in the browser.
+Open [link text here](https://users.metropolia.fi/~nestorl/zustand) to view it in the browser.
 
 ---
 

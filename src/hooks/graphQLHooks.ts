@@ -183,42 +183,42 @@ const useFile = () => {
 };
 
 const useLike = () => {
-  const postLike = async (media_id: number, token: string) => {
-    // Send a POST request to /likes with object { media_id } and the token in the Authorization header.
-    const options: RequestInit = {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + token,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({media_id}),
-    };
-
-    return await fetchData<MessageResponse>(
-      import.meta.env.VITE_MEDIA_API + '/likes',
-      options,
-    );
+  const postLike = async (media_id: string, token: string) => {
+    const query = `
+    mutation CreateLike($mediaId: ID!) {
+      createLike(media_id: $mediaId) {
+        message
+      }
+    }
+  `;
+  const variables = {mediaId: media_id};
+return await makeQuery<GraphQLResponse<{createLike: MessageResponse}>, {mediaId: string}>(query, variables, token);
   };
 
-  const deleteLike = async (like_id: number, token: string) => {
-    // Send a DELETE request to /likes/:like_id with the token in the Authorization header.
-    const options: RequestInit = {
-      method: 'DELETE',
-      headers: {
-        Authorization: 'Bearer ' + token,
-      },
-    };
-    return await fetchData<MessageResponse>(
-      import.meta.env.VITE_MEDIA_API + '/likes/' + like_id,
-      options,
-    );
+  const deleteLike = async (like_id: string, token: string) => {
+  const query = `
+  mutation DeleteLike($likeId: ID!) {
+    deleteLike(like_id: $likeId) {
+      message
+    }
+  }
+`;
+const variables = {likeId: like_id};
+return await makeQuery<GraphQLResponse<{deleteLike: MessageResponse}>, {likeId: string}>(query, variables, token);
   };
 
-  const getCountByMediaId = async (media_id: number) => {
-    // Send a GET request to /likes/:media_id to get the number of likes.
-    return await fetchData<{count: number}>(
-      import.meta.env.VITE_MEDIA_API + '/likes/count/' + media_id,
-    );
+  const getCountByMediaId = async (media_id: string) => {
+    const query = `
+    query MediaItem($mediaId: ID!) {
+      mediaItem(media_id: $mediaId) {
+        likes_count
+      }
+    }
+  `;
+  const variables = {mediaId: media_id};
+  const result = await makeQuery<GraphQLResponse<{mediaItem: {likes_count: number}}>, {mediaId: string}>(query, variables);
+  console.log(result.data.mediaItem.likes_count)
+  return {count: result.data.mediaItem.likes_count}
   };
 
   const getUserLike = async (media_id: number, token: string) => {
@@ -240,36 +240,36 @@ const useLike = () => {
 const useComment = () => {
   const postComment = async (
      comment_text: string,
-     media_id: number,
-     user_id: number,
+     media_id: string,
      token: string) => {
-      // TODO: Send a POST request to /comments with the comment object and the token in the Authorization header.
-      const options: RequestInit = {
-        method: 'POST',
-        headers: {
-          Authorization: 'Bearer ' + token,
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({comment_text, media_id, user_id}),
-      };
-      return await fetchData<MessageResponse>(
-        import.meta.env.VITE_MEDIA_API + '/comments',
-        options,
-      );
+const query = `
+mutation CreateComment($mediaId: ID!, $commentText: String!) {
+  createComment(media_id: $mediaId, comment_text: $commentText) {
+    message
+  }
+}`;
+const variables = {mediaId: media_id, commentText: comment_text};
+const result = await makeQuery<GraphQLResponse<{createComment: MessageResponse}>, {mediaId: string, commentText: string}>(query, variables, token);
+return result.data.createComment;
+
   };
-const {getUserById} = useUser();
-  const getCommentsByMediaId = async (media_id: number) => {
-      // TODO: Send a GET request to /comments/:media_id to get the comments.
-      const comments = await fetchData<Comment[]>(
-        import.meta.env.VITE_MEDIA_API + '/comments/bymedia/' + media_id,
-      );
-      const commentsWithUsername = await Promise.all<Comment & {username: string}>(
-        comments.map(async (comment) => {
-          const user =  await getUserById(comment.user_id);
-          return {...comment, username: user.username};
-        }
-      ));
-      return commentsWithUsername;
+
+  const getCommentsByMediaId = async (media_id: string) => {
+ const query = `
+ query CommentsByMediaID($mediaId: ID!) {
+  commentsByMediaID(media_id: $mediaId) {
+    comment_text
+    created_at
+    user {
+      username
+    }
+  }
+}`;
+const variables = {mediaId: media_id};
+const result = await makeQuery<GraphQLResponse<{commentsByMediaID: Comment[]}>, {mediaId: string}>(query, variables);
+console.log(result.data.commentsByMediaID)
+return result.data.commentsByMediaID;
+
   };
 
   return { postComment, getCommentsByMediaId };

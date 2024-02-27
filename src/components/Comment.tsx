@@ -1,10 +1,10 @@
 import {useEffect, useRef} from 'react';
 import {useForm} from '../hooks/formHooks';
-import {useCommentStore} from '../store';
 import {MediaItemWithOwner} from '../types/DBTypes';
 import {useUserContext} from '../hooks/contexHooks';
 //import {useComment} from '../hooks/apiHooks';
 import {useComment} from '../hooks/graphQLHooks';
+import { useCommentStore } from '../Store';
 
 const Comments = ({item}: {item: MediaItemWithOwner}) => {
   const {comments, setComments} = useCommentStore();
@@ -23,7 +23,6 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
       await postComment(
         inputs.comment_text,
         item.media_id,
-        user.user_id,
         token,
       );
       await getComments()
@@ -82,7 +81,7 @@ const Comments = ({item}: {item: MediaItemWithOwner}) => {
           </form>
         </>
       )}
-      {comments.length > 0 && (
+      {comments?.length > 0 && (
         <>
           <h3 className="text-xl">Comments</h3>
           <ul>

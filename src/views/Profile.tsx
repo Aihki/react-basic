@@ -4,7 +4,7 @@ import { useUserContext } from '../hooks/contexHooks';
 
 const Profile = () => {
   const {user} = useUserContext();
-
+  console.log('user', user)
   return (
     <>
       <h2>Profile page</h2>

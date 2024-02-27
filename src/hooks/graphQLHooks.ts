@@ -113,17 +113,23 @@ const useUser = () => {
     await fetchData<UserResponse>(import.meta.env.VITE_AUTH_API + '/users/', options,);
   };
   const getUsernameAvailable = async (username: string) => {
-    const result = await fetchData<{available: boolean}>(
-      import.meta.env.VITE_AUTH_API + '/users/username/' + username
-    );
-    return result;
+    const query = `query CheckUsername($username: String!) {
+      checkUsername(username: $username) {
+        available
+      }
+    }`;
+    const result = await makeQuery<GraphQLResponse<{checkUsername: {available: boolean}}>, {username: string}>(query, {username});
+    return result.data.checkUsername;
   };
 
   const getEmailAvailable = async (email: string) => {
-    const result = await fetchData<{available: boolean}>(
-      import.meta.env.VITE_AUTH_API + '/users/email/' + email
-    );
-    return result;
+const query = `query CheckEmail($email: String!) {
+  checkEmail(email: $email) {
+    available
+  }
+}`;
+const result = await makeQuery<GraphQLResponse<{checkEmail: {available: boolean}}>, {email: string}>(query, {email});
+return result.data.checkEmail;
   };
 
   const getUserById = async (user_id: number) => {

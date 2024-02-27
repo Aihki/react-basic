@@ -44,37 +44,48 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 
   return (
     <>
-      <h1>Upload</h1>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="title">Title</label>
-          <input
-            name="title"
-            type="text"
-            id="title"
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <label htmlFor="description">Description</label>
-          <textarea
-            name="description"
-            rows={5}
-            id="description"
-            onChange={handleInputChange}
-          ></textarea>
-        </div>
-        <div>
-          <label htmlFor="file">File</label>
-          <input
-            name="file"
-            type="file"
-            id="file"
-            accept="image/*, video/*"
-            onChange={handleFileChange}
-          />
-        </div>
+    <h1 className="text-3xl">Upload</h1>
+    <form onSubmit={handleSubmit}>
+      <div className="flex w-4/5">
+        <label className="w-1/3 p-6 text-end" htmlFor="title">
+          Title
+        </label>
+        <input
+          className="m-3 w-2/3 rounded-md border border-slate-500 p-3 text-slate-950"
+          name="title"
+          type="text"
+          id="title"
+          onChange={handleInputChange}
+        />
+      </div>
+      <div className="flex w-4/5">
+        <label className="w-1/3 p-6 text-end" htmlFor="description">
+          Description
+        </label>
+        <textarea
+          className="m-3 w-2/3  rounded-md border border-slate-500 p-3 text-slate-950"
+          name="description"
+          rows={5}
+          id="description"
+          onChange={handleInputChange}
+        ></textarea>
+      </div>
+      <div className="flex w-4/5">
+        <label className="w-1/3 p-6 text-end" htmlFor="file">
+          File
+        </label>
+        <input
+          className="m-3 w-2/3 rounded-md border border-slate-500 p-3 text-slate-50"
+          name="file"
+          type="file"
+          id="file"
+          accept="image/*, video/*"
+          onChange={handleFileChange}
+        />
+      </div>
+      <div className="flex w-4/5 justify-end">
         <img
+          className="w-2/3 p-6"
           src={
             file
               ? URL.createObjectURL(file)
@@ -83,14 +94,18 @@ const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           alt="preview"
           width="200"
         />
+      </div>
+      <div className="flex w-4/5 justify-end">
         <button
+          className="m-3 w-1/3 rounded-md bg-slate-600 p-3 disabled:text-slate-600"
           type="submit"
           disabled={file && inputs.title.length > 3 ? false : true}
         >
           Upload
         </button>
-      </form>
-    </>
+      </div>
+    </form>
+  </>
   );
 };
 export default Upload;
